@@ -3,6 +3,20 @@
 // Import Image model
 const Image = require('../models/image')
 
+// List images
+function getAll(req, res) {
+
+    // Find all images on database
+    Image.find({}, (err, images) => {
+
+		if(err) return res.status(500).send({ message: `Listing images ERROR => ${err}` })
+
+        // Send images to view
+		res.render('index', {images})
+
+	})
+}
+
 // Save image
 function save(req, res) {
 
@@ -24,7 +38,8 @@ function save(req, res) {
 
 		} else {
 
-			res.status(200).send({ message: "The image was stored", image: imageStored })
+			// res.status(200).send({ message: "The image was stored", image: imageStored })
+            res.render('index')
 			
 		}
 
@@ -32,5 +47,9 @@ function save(req, res) {
 
 }
 
-module.exports.save = save;
+// Export methods
+module.exports = {
+    getAll,
+    save    
+};
 	
