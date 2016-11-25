@@ -9,12 +9,7 @@ const ImageController = require('../controllers/image')
 // Routes:
 
 // Display the upload image form
-router.get('/image', (req, res) => {
-
-    // Render jade template for the index view
-    res.render('index')
-
-})
+router.get('/image', ImageController.getAll)
 
 // Save requested image into server
 router.post('/image', ImageController.save)
