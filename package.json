@@ -1,0 +1,11 @@
+{
+  "name": "upload-images",
+  "version": "1.0.0",
+  "description": "An app to upload images to server made in NodeJS.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yasser Carreón",
+  "license": "ISC"
+}
