@@ -3,11 +3,12 @@ head
     meta(name="viewport", content="width=device-width, initial-scale=1")
     title = Upload Images
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", crossorigin="anonymous")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
 body
     div(class="container")
         div(class="row")
             div(class="col-md-6 col-md-offset-3")
-                h2 Upload Image
+                h2(class="text-center") Upload Image
                 form(action="", method="POST")
                     div(class="form-group")
                         label(for="title") Image title
@@ -20,3 +21,21 @@ body
                         input(type="file", class="form-control", id="image", name="image", placeholder="Image")
                     div(class="form-group")
                     button(type="submit" class="btn btn-default") Upload
+        br
+        div(class="row")
+            div(class="col-md-6 col-md-offset-3")
+                h2(class="text-center") Images on Server
+                table(class="table table-bordered")
+                    tr
+                        th Id 
+                        th Title
+                        th Description
+                        td #
+                    each image in images 
+                        tr
+                            td #{image._id}
+                            td #{image.title}
+                            td #{image.description}
+                            td 
+                                a(href="image/#{image._id}")
+                                    i(class="fa fa-download")
