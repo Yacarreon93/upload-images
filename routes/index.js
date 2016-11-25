@@ -3,6 +3,9 @@
 const express = require('express')
 const router = express.Router()
 
+const multer = require('multer')
+const upload = multer({ dest: './public/imgs' })
+
 // Import controller
 const ImageController = require('../controllers/image')
 
@@ -12,7 +15,7 @@ const ImageController = require('../controllers/image')
 router.get('/image', ImageController.getAll)
 
 // Save requested image into server
-router.post('/image', ImageController.save)
+router.post('/image', upload.single('image'), ImageController.save)
 
 // Display the upload image form
 router.get('/image/:imageId', ImageController.get)
