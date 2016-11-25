@@ -8,7 +8,7 @@ const ImageSchema = Schema({
 
 	title: String,
 	description: String,
-	path: { type: String, default: './public/imgs/dummy.png' }
+	path: { type: String, default: './public/dummy/dummy.png' }
 
 })
 
