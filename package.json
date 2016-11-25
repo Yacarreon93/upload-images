@@ -4,6 +4,7 @@
   "description": "An app to upload images to server made in NodeJS.",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Yasser Carreón",
