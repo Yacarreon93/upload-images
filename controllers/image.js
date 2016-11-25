@@ -1,7 +1,28 @@
 'use strict'
 
+const fs = require('fs')
+
 // Import Image model
 const Image = require('../models/image')
+
+// Get single image
+function get(req, res) {
+
+    let imageId = req.params.imageId
+
+	Image.findById(imageId, (err, image) => {
+
+		if (err) return res.status(500).send({ message: `Saving image ERROR => ${err}` })
+
+		if (!image) return res.status(404).send({ message: `The image doesn't exist` })
+
+		let img = fs.readFileSync(`${image.path}`);
+     	res.writeHead(200, {'Content-Type': 'image/gif' });
+     	res.end(img, 'binary');
+
+	})
+
+}
 
 // List images
 function getAll(req, res) {
@@ -48,6 +69,7 @@ function save(req, res) {
 
 // Export methods
 module.exports = {
+    get,
     getAll,
     save    
 };
