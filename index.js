@@ -4,8 +4,6 @@ const app = require('./app')
 const mongoose = require('mongoose')
 const config = require('./config.js')
 
-console.log(config.DB)
-
 mongoose.connect(config.DB, (err, res) => {
 
     if (err) {
