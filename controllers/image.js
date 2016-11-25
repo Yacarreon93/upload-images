@@ -15,8 +15,20 @@ function save(req, res) {
     image.title = req.body.title
 	image.description = req.body.description
 
-    // Testing
-    res.status(200).send(image)
+    // Store image into database
+    image.save((err, imageStored) => {
+
+		if (err) {
+
+			console.log(`Saving image ERROR: ${err}`)
+
+		} else {
+
+			res.status(200).send({ message: "The image was stored", image: imageStored })
+			
+		}
+
+	})
 
 }
 
