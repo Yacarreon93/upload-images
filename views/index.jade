@@ -30,12 +30,12 @@ body
                         th Id 
                         th Title
                         th Description
-                        td #
+                        th(class="text-center") #
                     each image in images 
                         tr
                             td #{image._id}
                             td #{image.title}
                             td #{image.description}
-                            td 
+                            td(class="text-center") 
                                 a(href="image/#{image._id}")
                                     i(class="fa fa-download")
