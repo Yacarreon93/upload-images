@@ -11,6 +11,9 @@ const ImageController = require('../controllers/image')
 
 // Routes:
 
+// Redirect to real route
+router.get('/', (req, res) => { res.redirect('/image') })
+
 // Display the upload image form
 router.get('/image', ImageController.getAll)
 
