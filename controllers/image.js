@@ -18,6 +18,8 @@ function get(req, res) {
 
 		if (!image) return res.status(404).send({ message: `The image doesn't exist` })
 
+        // Read file from local server
+        // Improve: It should be into an Image method to avoid dependency
 		let img = fs.readFileSync(`${image.path}`)
      	res.writeHead(200, {'Content-Type': 'image/gif' })
      	res.end(img, 'binary')
@@ -41,6 +43,7 @@ function getAll(req, res) {
 }
 
 // Save image
+// It has a hard dependency about where to locate the images
 function save(req, res) {
 
     console.log('Saving image from controller...')
@@ -54,22 +57,24 @@ function save(req, res) {
 
     // Save image in server if exists
     if (req.file) {
-
+        
         let fileExt = path.extname(req.file.originalname).toLowerCase()   
 
+        // Only are allowed .png and .jpg files
         if (fileExt === '.png' || fileExt === '.jpg') {
 
             let filename = uuid.v4()
             let tempPath = req.file.path
             let targetPath = path.resolve(`./public/imgs/${filename}${fileExt}`)
 
+            // Save image in the filesystem
             fs.rename(tempPath, targetPath, function(err) {
 
                 if (err) throw err
 
                 image.path = targetPath
 
-                // Store image into database
+                // If everything is correct, store image into database
                 image.save((err, imageStored) => {
 
                     if (err) {
@@ -78,6 +83,7 @@ function save(req, res) {
 
                     } else {
 
+                        // Redirect and show the new image into a list
                         res.redirect('/image')
                         
                     }
@@ -100,6 +106,8 @@ function save(req, res) {
 
     } else {
 
+        // If has no image the model will asign a dummy image 
+
         // Store image into database
         image.save((err, imageStored) => {
 
@@ -109,15 +117,14 @@ function save(req, res) {
 
             } else {
 
+                // Redirect and show the new image into a list
                 res.redirect('/image')
                 
             }
 
         })
 
-    }  
-    
-        
+    }          
 
 }
 
