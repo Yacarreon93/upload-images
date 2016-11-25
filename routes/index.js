@@ -14,4 +14,7 @@ router.get('/image', ImageController.getAll)
 // Save requested image into server
 router.post('/image', ImageController.save)
 
+// Display the upload image form
+router.get('/image/:imageId', ImageController.get)
+
 module.exports = router
