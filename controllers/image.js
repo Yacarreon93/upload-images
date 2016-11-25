@@ -38,8 +38,7 @@ function save(req, res) {
 
 		} else {
 
-			// res.status(200).send({ message: "The image was stored", image: imageStored })
-            res.render('index')
+            res.redirect('/image')
 			
 		}
 
