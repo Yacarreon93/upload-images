@@ -13,4 +13,12 @@ router.get('/image', (req, res) => {
 
 })
 
+// Save requested image into server
+router.post('/image', (req, res) => {
+
+    console.log(req)
+    res.status(200).send('Saving image...')
+
+})
+
 module.exports = router
