@@ -6,7 +6,8 @@ const router = express.Router()
 
 router.get('/image', (req, res) => {
 
-    res.status(200).send('Upload image form...')
+    // Render jade template for the index view
+    res.render('index')
 
 })
 
