@@ -52,50 +52,72 @@ function save(req, res) {
     image.title = req.body.title
 	image.description = req.body.description
 
-    console.log(req.file)
-    
-    let fileExt = path.extname(req.file.originalname).toLowerCase()   
+    // Save image in server if exists
+    if (req.file) {
 
-    if (fileExt === '.png' || fileExt === '.jpg') {
+        let fileExt = path.extname(req.file.originalname).toLowerCase()   
 
-        let filename = uuid.v4()
-        let tempPath = req.file.path
-        let targetPath = path.resolve(`./public/imgs/${filename}${fileExt}`)
+        if (fileExt === '.png' || fileExt === '.jpg') {
 
-        fs.rename(tempPath, targetPath, function(err) {
+            let filename = uuid.v4()
+            let tempPath = req.file.path
+            let targetPath = path.resolve(`./public/imgs/${filename}${fileExt}`)
 
-            if (err) throw err
+            fs.rename(tempPath, targetPath, function(err) {
 
-            image.path = targetPath
+                if (err) throw err
 
-            // Store image into database
-            image.save((err, imageStored) => {
+                image.path = targetPath
 
-                if (err) {
+                // Store image into database
+                image.save((err, imageStored) => {
 
-                    console.log(`Saving image ERROR: ${err}`)
+                    if (err) {
 
-                } else {
+                        console.log(`Saving image ERROR: ${err}`)
 
-                    res.redirect('/image')
-                    
-                }
+                    } else {
+
+                        res.redirect('/image')
+                        
+                    }
+
+                })
 
             })
 
-        })
+        } else {
+
+            fs.unlink(tempPath, function () {
+
+                if (err) throw err
+
+                console.error('Only .png or .jpg files are allowed!')
+
+            })
+
+        }
 
     } else {
 
-        fs.unlink(tempPath, function () {
+        // Store image into database
+        image.save((err, imageStored) => {
 
-            if (err) throw err
+            if (err) {
 
-            console.error('Only .png or .jpg files are allowed!')
+                console.log(`Saving image ERROR: ${err}`)
+
+            } else {
+
+                res.redirect('/image')
+                
+            }
 
         })
 
-    }    
+    }  
+    
+        
 
 }
 
